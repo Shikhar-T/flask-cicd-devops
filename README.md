@@ -65,19 +65,7 @@ The following diagram illustrates the complete workflow of the system:
 
 ## Project Structure
 
-.
-├── jenkins/
-│   └── Jenkinsfile
-├── ansible/
-│   ├── deploy.yml
-│   └── inventory.ini
-├── k8s/
-│   ├── deployment.yaml
-│   └── service.yaml
-├── docs/
-│   └── architecture.png
-├── README.md
-
+![Project Structure Diagram](docs/structure.png)
 ---
 
 ## Initial Deployment
