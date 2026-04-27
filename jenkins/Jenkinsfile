@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git 'https://github.com/yourusername/your-app-repo.git'
+            }
+        }
+
+        stage('Build & Push Image (Ansible)') {
+            steps {
+                sh """
+                ssh ansibleadmin@<Ansible-Server-ip> \
+                "ansible-playbook /home/ansibleadmin/project/build-docker.yml"
+                """
+            }
+        }
+
+        stage('Get Tag & Deploy') {
+            steps {
+                sh """
+                TAG=\$(git rev-parse --short HEAD)
+                echo "TAG = \$TAG"
+
+                ssh ubuntu@<K8S-IP> \
+                "kubectl set image deployment/myapp-deployment myapp=shikhardevops/myapp:\$TAG"
+                """
+            }
+        }
+    }
+}

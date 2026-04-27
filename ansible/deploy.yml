@@ -1,0 +1,26 @@
+---
+- name: Build and Push Docker Image
+  hosts: localhost
+  vars:
+    image_name: shikhardevops/myapp
+  tasks:
+
+    - name: Clone Repo
+      git:
+        repo: 'https://github.com/Shikhar-T/devops-python-app.git'
+        dest: /home/ansibleadmin/project/app
+        force: yes
+      register: git_output
+
+    - name: Get Commit Tag
+      set_fact:
+        commit_tag: "{{ git_output.after[:7] }}"
+
+    - name: Docker Login
+      command: docker login -u <DOCKERHUB-USERNAME> -p <PASSWORD>
+
+    - name: Build Image
+      command: docker build -t {{ image_name }}:{{ commit_tag }} /home/ansibleadmin/project/app
+
+    - name: Push Image
+      command: docker push {{ image_name }}:{{ commit_tag }}
