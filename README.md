@@ -58,7 +58,7 @@ The following diagram illustrates the complete workflow of the system:
 * Jenkins (CI Pipeline)
 * Docker (Containerization)
 * Ansible (Automation)
-* Kubernetes - Minikube (Orchestration)
+* Kubernetes -(Orchestration)
 * AWS EC2 (Infrastructure)
 
 ---
